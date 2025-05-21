@@ -42,20 +42,6 @@ int find_target(t_stack *a, int value)
     return (target);
 }
 
-t_stack *find_cheapest(t_stack **b)
-{
-    t_stack *temp = *b;
-    t_stack *cheapest = temp;
-
-    while (temp)
-    {
-        if (temp->cost_a + temp->cost_b < cheapest->cost_a + cheapest->cost_b)
-            cheapest = temp;
-        temp = temp->next;
-    }
-    return (cheapest);
-}
-
 int get_index(t_stack **a, int value)
 {
     t_stack *temp = *a;

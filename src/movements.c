@@ -2,9 +2,12 @@
 
 static void	write_move(char *move, char ab)
 {
-	write(1, move, ft_strlen(move));
-	write(1, &ab, 1);
-	write(1, "\n", 1);
+	if (ab != 'x')
+	{
+		write(1, move, ft_strlen(move));
+		write(1, &ab, 1);
+		write(1, "\n", 1);
+	}
 }
 
 void	push(t_stack **src, t_stack **dest, char s)
@@ -101,4 +104,18 @@ void	reverse_rotate(t_stack **ab, char s)
 		last = last->next;
 	}
 	write_move("rr", s);
+}
+
+void    rr(t_stack **a, t_stack **b)
+{
+    rotate(a, 'x');
+    rotate(b, 'x');
+    write(1, "rr\n", 3);
+}
+
+void    rrr(t_stack **a, t_stack **b)
+{
+    reverse_rotate(a, 'x');
+    reverse_rotate(b, 'x');
+    write(1, "rrr\n", 4);
 }

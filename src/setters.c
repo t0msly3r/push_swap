@@ -31,24 +31,27 @@ void	set_target(t_stack **a, t_stack **b)
 
 void	set_costs(t_stack **a, t_stack **b)
 {
-	int size_a = stacklen(a);
-	int size_b = stacklen(b);
-	t_stack *temp_b = *b;
+	int		size_a = stacklen(a);
+	int		size_b = stacklen(b);
+	t_stack	*temp_b = *b;
+	int		target_pos;
 
+	temp_b = *b;
+	size_a = stacklen(a);
+	size_b = stacklen(b);
 	set_index(a);
 	set_index(b);
-
 	while (temp_b)
 	{
 		if (temp_b->index <= size_b / 2)
 			temp_b->cost_b = temp_b->index;
 		else
-			temp_b->cost_b = (temp_b->index - size_b);
-
-		if (get_index(a, temp_b->target) <= size_a / 2)
-			temp_b->cost_a = get_index(a, temp_b->target);
+			temp_b->cost_b = -(size_b - temp_b->index);
+		target_pos = get_index(a, temp_b->target);
+		if (target_pos <= size_a / 2)
+			temp_b->cost_a = target_pos;
 		else
-			temp_b->cost_a = (get_index(a, temp_b->target) - size_a);
+			temp_b->cost_a = -(size_a - target_pos); 
 		temp_b = temp_b->next;
 	}
 }

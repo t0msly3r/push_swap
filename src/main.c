@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
         set_costs(&a, &b);
 		// show_stacks(&a,&b);
 		sort_large(&a, &b);
-		// show_stacks(&a,&b);
 		free_stack(a);
 		free_stack(b);
 	}

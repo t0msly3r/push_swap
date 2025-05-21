@@ -1,4 +1,5 @@
 #include "../include/push_swap.h"
+
 void	print_stack(t_stack *a)
 {
 	t_stack	*temp;
@@ -64,22 +65,34 @@ void	push_b(t_stack **a, t_stack **b)
 	}
 }
 
-// int check_duplicates(t_stack	**a)
-// {
-//     t_stack	*temp;
-//     t_stack	*temp2;
+void rotate_s(t_stack  **ab, int *cost, char c)
+{
+    while (*cost > 0)
+    {
+        rotate(ab, c);
+        (*cost)--;
+    }
+}
 
-//     temp = *a;
-//     while (temp)
+void rrotate_s(t_stack  **ab, int *cost, char c)
+{
+    while (*cost < 0)
+    {
+        reverse_rotate(ab, c);
+        (*cost)++;
+    }
+}
+
+// void min_to_top(t_stack **a, int min_idx, int size_a, int min_value)
+// {
+//     if (min_idx <= size_a / 2)
 //     {
-//         temp2 = temp->next;
-//         while (temp2)
-//         {
-//             if (temp->value == temp2->value)
-//                 return (1);
-//             temp2 = temp2->next;
-//         }
-//         temp = temp->next;
+//         while ((*a)->value != min_value)
+//             rotate(a, 'a');
 //     }
-//     return (0);
+//     else
+//     {
+//         while ((*a)->value != min_value)
+//             reverse_rotate(a, 'a');
+//     }
 // }

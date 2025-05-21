@@ -68,5 +68,6 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_tolower(int c);
+int		ft_abs(int n);
 
 #endif 
