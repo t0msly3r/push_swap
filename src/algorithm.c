@@ -1,140 +1,67 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 11:10:00 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/03/18 14:35:59 by tfiz-ben         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../include/push_swap.h"
 
-#include "../includes/libft.h"
-#include "push_swap.h"
-
-void	move_top(int cost, t_stack **a)
+void	sort_three(t_stack **a)
 {
-	int		mid;
-	t_stack	*temp;
-	t_stack	*node;
+    int first = (*a)->value;
+    int second = (*a)->next->value;
+    int third = (*a)->next->next->value;
 
-	node = *a;
-	temp = *a;
-	mid = stacklen(a) / 2;
-	while (node->index != cost)
-		node = node->next;
-	while (node->index != 0)
-	{
-		if (cost >= mid)
-			reverse_rotate(&temp, 'a');
-		else
-			rotate(&temp, 'a');
-	}
-	*a = temp;
+    if (first > second && first > third)
+        rotate(a, 'a');
+    else if (second > first && second > third)
+        reverse_rotate(a, 'a');
+    first = (*a)->value;
+    second = (*a)->next->value;
+    if (first > second)
+        swap(a, 'a');
 }
 
-void	return_nodes(t_stack **a, t_stack **b, int len)
-{
-	t_stack	*start;
-	int		size;
-	int		count;
 
-	if (!*b)
-		return ;
-	start = *b;
-	size = stacklen(b);
-	count = 0;
-	while (count < size)
-	{
-		if ((*b)->dig_nbr > len)
-		{
-			push(b, a, 'b');
-		}
-		else
-		{
-			rotate(b, 'b');
-		}
-		count++;
-		if (*b == start)
-			break ;
-	}
+void sort_five(t_stack **a, t_stack **b)
+{
+    int min;
+
+    min = find_min(*a);
+    move_to_top(a, min, 'a');
+    push(b, a, 'a');
+    min = find_min(*a);
+    move_to_top(a, min, 'a');
+    push(b, a, 'a');
+    sort_three(a);
+    push(a, b, 'b');
+    push(a, b, 'b');
+    if ((*a)->value > (*a)->next->value)
+        swap(a, 'a');
 }
 
-int	head_node(t_stack **a, int digit)
+void sort_large(t_stack **a, t_stack **b)
 {
-	int		lower;
-	int		index;
-	t_stack	*temp;
+    t_stack *cheapest;
 
-	index = -1;
-	temp = *a;
-	lower = -1;
-	while (temp)
-	{
-		if (temp->last_digit == digit)
-		{
-			if (lower == -1)
-			{
-				lower = temp->value;
-				index = temp->index;
-			}
-			else if (temp->value < lower)
-			{
-				lower = temp->value;
-				index = temp->index;
-			}
-		}
-		temp = temp->next;
-	}
-	return (index);
+    push_b(a, b);
+    sort_three(a);
+    while (*b)
+    {
+        set_target(a, b);
+        set_costs(a, b);
+        cheapest = find_cheapest(b);
+        move_to_top(b, cheapest->value, 'b');
+        move_to_top(a, cheapest->target, 'a');
+        push(b, a, 'a');
+    }
+    move_to_top(a, find_min(*a), 'a');
 }
 
-void	radix_sort(t_stack **a, t_stack **b)
+void sort(t_stack **a, t_stack **b)
 {
-	int		digit;
-	t_stack	*temp;
-	int		cost;
+    int size = stacklen(a);
 
-	digit = 0;
-	temp = *a;
-	while (digit <= 9)
-	{
-		cost = head_node(&temp, digit);
-		if (cost >= 0)
-		{
-			move_top(cost, a);
-			push(a, b, 'a');
-		}
-		else
-			digit++;
-		temp = *a;
-	}
-}
-
-void	sort_stacks(t_stack **a, t_stack **b)
-{
-	int	dig_nbr;
-	int	i;
-	int	pos;
-
-	pos = 0;
-	i = 0;
-	dig_nbr = find_biggest_nbr(a);
-	set_index(a);
-	while (i < dig_nbr)
-	{
-		set_last_digit(a, pos);
-		radix_sort(a, b);
-		return_nodes(a, b, (pos + 1));
-		if (find_biggest_nbr(a) > 1)
-			if (check_stacks(a, b))
-				break ;
-		pos++;
-		i++;
-	}
-	while (*b)
-	{
-		push(b, a, 'b');
-	} 
+    if (size == 2)
+        swap(a, 'a');
+    else if (size == 3)
+        sort_three(a);
+    else if (size <= 5)
+        sort_five(a, b);
+    else
+        sort_large(a, b);
 }

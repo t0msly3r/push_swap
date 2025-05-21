@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setters.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 16:17:14 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/03/10 13:12:54 by tfiz-ben         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/libft.h"
-#include "push_swap.h"
+#include "../include/push_swap.h"
 
 void	set_index(t_stack **ab)
 {
@@ -28,35 +15,40 @@ void	set_index(t_stack **ab)
 	}
 }
 
-void	set_last_digit(t_stack **ab, int pos)
+void	set_target(t_stack **a, t_stack **b)
 {
-	char	*char_value;
-	t_stack	*temp;
-	int		len;
+	t_stack	*temp_a;
+	t_stack	*temp_b;
 
-	temp = *ab;
-	while (temp)
+	temp_a = *a;
+	temp_b = *b;
+	while (temp_b)
 	{
-		char_value = ft_itoa(temp->value);
-		len = ft_strlen(char_value);
-		if (len <= pos)
-			temp->last_digit = -1;
-		else
-			temp->last_digit = char_value[(len - 1) - pos] - '0';
-		free(char_value);
-		char_value = NULL;
-		temp = temp->next;
+		temp_b->target = find_target(temp_a, temp_b->value);
+		temp_b = temp_b->next;
 	}
 }
 
-void	set_nbr_digit(t_stack **a)
+void	set_costs(t_stack **a, t_stack **b)
 {
-	t_stack	*temp;
+	int size_a = stacklen(a);
+	int size_b = stacklen(b);
+	t_stack *temp_b = *b;
 
-	temp = *a;
-	while (temp)
+	set_index(a);
+	set_index(b);
+
+	while (temp_b)
 	{
-		temp->dig_nbr = count_digits(temp->value);
-		temp = temp->next;
+		if (temp_b->index <= size_b / 2)
+			temp_b->cost_b = temp_b->index;
+		else
+			temp_b->cost_b = (temp_b->index - size_b);
+
+		if (get_index(a, temp_b->target) <= size_a / 2)
+			temp_b->cost_a = get_index(a, temp_b->target);
+		else
+			temp_b->cost_a = (get_index(a, temp_b->target) - size_a);
+		temp_b = temp_b->next;
 	}
 }

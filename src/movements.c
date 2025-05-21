@@ -1,19 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   movements.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 17:13:13 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/03/11 12:21:35 by tfiz-ben         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "../include/push_swap.h"
 
-#include "../includes/libft.h"
-#include "push_swap.h"
-
-void	write_move(char *move, char ab)
+static void	write_move(char *move, char ab)
 {
 	write(1, move, ft_strlen(move));
 	write(1, &ab, 1);

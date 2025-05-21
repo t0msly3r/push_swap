@@ -1,95 +1,85 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils_2.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 11:09:43 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/03/11 17:25:04 by tfiz-ben         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/libft.h"
-#include "push_swap.h"
-
-int	stacklen(t_stack **a)
-{
-	int		i;
-	t_stack	*head;
-
-	head = *a;
-	i = 0;
-	while ((*a))
-	{
-		*a = (*a)->next;
-		i++;
-	}
-	*a = head;
-	return (i);
-}
-
-int	count_digits(int nbr)
-{
-	int	i;
-
-	i = 0;
-	while (nbr)
-	{
-		nbr /= 10;
-		i++;
-	}
-	return (i);
-}
-
-int	find_biggest_nbr(t_stack **a)
+#include "../include/push_swap.h"
+void	print_stack(t_stack *a)
 {
 	t_stack	*temp;
-	int		dig_nbr;
-	int		digits;
 
-	dig_nbr = 0;
-	temp = *a;
+	temp = a;
 	while (temp)
 	{
-		digits = count_digits(temp->value);
-		if (digits > dig_nbr)
-		{
-			dig_nbr = digits;
-		}
+		printf("value:%d target:%d cost_a:%d cost_b:%d\n",temp->value, temp->target, temp->cost_a, temp->cost_b);
 		temp = temp->next;
 	}
-	return (dig_nbr);
 }
 
-int	is_sorted_reverse(t_stack **a)
+void	show_stacks(t_stack **a, t_stack **b)
 {
-	t_stack	*temp;
-
-	temp = *a;
-	while (temp->next)
-	{
-		if (temp->value < temp->next->value)
-		{
-			return (0);
-		}
-		temp = temp->next;
-	}
-	return (1);
+	printf("\nstack a: \n");
+	print_stack(*a);
+	printf("\nstack b: \n");
+	print_stack(*b);
 }
 
-int	is_sorted(t_stack **a)
+void move_to_top(t_stack **stack, int value, char c)
 {
-	t_stack	*temp;
+    int pos = 0;
+    int size = stacklen(stack);
+    t_stack *tmp = *stack;
 
-	temp = *a;
-	while (temp->next)
-	{
-		if (temp->value > temp->next->value)
-		{
-			return (0);
-		}
-		temp = temp->next;
-	}
-	return (1);
+    while (tmp && tmp->value != value)
+    {
+        pos++;
+        tmp = tmp->next;
+    }
+    if (pos <= size / 2)
+    {
+        while ((*stack)->value != value)
+            rotate(stack, c);
+    }
+    else
+    {
+        while ((*stack)->value != value)
+        {
+            reverse_rotate(stack, c);
+        }
+    }
 }
+
+int find_min(t_stack *stack)
+{
+    int min = stack->value;
+    while (stack)
+    {
+        if (stack->value < min)
+            min = stack->value;
+        stack = stack->next;
+    }
+    return min;
+}
+
+void	push_b(t_stack **a, t_stack **b)
+{
+	while (stacklen(a) > 3)
+	{
+		push(a, b, 'b');
+	}
+}
+
+// int check_duplicates(t_stack	**a)
+// {
+//     t_stack	*temp;
+//     t_stack	*temp2;
+
+//     temp = *a;
+//     while (temp)
+//     {
+//         temp2 = temp->next;
+//         while (temp2)
+//         {
+//             if (temp->value == temp2->value)
+//                 return (1);
+//             temp2 = temp2->next;
+//         }
+//         temp = temp->next;
+//     }
+//     return (0);
+// }
