@@ -83,16 +83,16 @@ void rrotate_s(t_stack  **ab, int *cost, char c)
     }
 }
 
-// void min_to_top(t_stack **a, int min_idx, int size_a, int min_value)
-// {
-//     if (min_idx <= size_a / 2)
-//     {
-//         while ((*a)->value != min_value)
-//             rotate(a, 'a');
-//     }
-//     else
-//     {
-//         while ((*a)->value != min_value)
-//             reverse_rotate(a, 'a');
-//     }
-// }
+void min_to_top(t_stack **a, int min_idx, int size_a, int min_value)
+{
+    if (min_idx <= size_a / 2)
+    {
+        while ((*a)->value != min_value)
+            rotate(a, 'a');
+    }
+    else
+    {
+        while ((*a)->value != min_value)
+            reverse_rotate(a, 'a');
+    }
+}

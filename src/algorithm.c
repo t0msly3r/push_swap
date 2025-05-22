@@ -80,14 +80,15 @@ t_stack *find_cheapest(t_stack **b)
     t_stack *temp;
     t_stack *cheapest;
     int     min_cost;
-    int total_cost;
+    int     total_cost;
     
     temp = *b;
     cheapest = temp;
+    min_cost = calculate_total_cost(temp->cost_a, temp->cost_b); 
+    temp = temp->next;
     while (temp)
     {
         total_cost = calculate_total_cost(temp->cost_a, temp->cost_b);
-        
         if (total_cost < min_cost)
         {
             min_cost = total_cost;
@@ -95,7 +96,6 @@ t_stack *find_cheapest(t_stack **b)
         }
         temp = temp->next;
     }
-    
     return cheapest;
 }
 
@@ -119,16 +119,7 @@ void sort_large(t_stack **a, t_stack **b)
         execute_moves(a, b, cheapest->cost_a, cheapest->cost_b);
         push(b, a, 'a');
     }
-    if (min_idx <= size_a / 2)
-    {
-     while ((*a)->value != min_value)
-            rotate(a, 'a');
-    }
-    else
-    {
-        while ((*a)->value != min_value)
-            reverse_rotate(a, 'a');
-    }
+    min_to_top(a, min_idx, size_a, min_value);
 }
 
 void sort(t_stack **a, t_stack **b)
