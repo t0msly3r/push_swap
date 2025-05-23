@@ -1,98 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:40:04 by tfiz-ben          #+#    #+#             */
+/*   Updated: 2025/05/23 16:12:07 by tfiz-ben         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
 
-void	print_stack(t_stack *a)
+int	stacklen(t_stack **a)
 {
+	int		i;
 	t_stack	*temp;
 
+	temp = *a;
+	i = 0;
+	while (temp)
+	{
+		temp = temp->next;
+		i++;
+	}
+	return (i);
+}
+
+int	find_target(t_stack *a, int value)
+{
+	int		target;
+	t_stack	*temp;
+
+	target = __INT_MAX__;
 	temp = a;
 	while (temp)
 	{
-		printf("value:%d target:%d cost_a:%d cost_b:%d\n",temp->value, temp->target, temp->cost_a, temp->cost_b);
+		if ((value < temp->value) && (temp->value < target))
+		{
+			target = temp->value;
+		}
 		temp = temp->next;
 	}
-}
-
-void	show_stacks(t_stack **a, t_stack **b)
-{
-	printf("\nstack a: \n");
-	print_stack(*a);
-	printf("\nstack b: \n");
-	print_stack(*b);
-}
-
-void move_to_top(t_stack **stack, int value, char c)
-{
-    int pos = 0;
-    int size = stacklen(stack);
-    t_stack *tmp = *stack;
-
-    while (tmp && tmp->value != value)
-    {
-        pos++;
-        tmp = tmp->next;
-    }
-    if (pos <= size / 2)
-    {
-        while ((*stack)->value != value)
-            rotate(stack, c);
-    }
-    else
-    {
-        while ((*stack)->value != value)
-        {
-            reverse_rotate(stack, c);
-        }
-    }
-}
-
-int find_min(t_stack *stack)
-{
-    int min = stack->value;
-    while (stack)
-    {
-        if (stack->value < min)
-            min = stack->value;
-        stack = stack->next;
-    }
-    return min;
-}
-
-void	push_b(t_stack **a, t_stack **b)
-{
-	while (stacklen(a) > 3)
+	if (target == __INT_MAX__)
 	{
-		push(a, b, 'b');
+		temp = a;
+		target = temp->value;
+		while (temp)
+		{
+			if (temp->value < target)
+				target = temp->value;
+			temp = temp->next;
+		}
 	}
+	return (target);
 }
 
-void rotate_s(t_stack  **ab, int *cost, char c)
+void	ft_free_split(char **split)
 {
-    while (*cost > 0)
-    {
-        rotate(ab, c);
-        (*cost)--;
-    }
+	int	i;
+
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
-void rrotate_s(t_stack  **ab, int *cost, char c)
+void	execute_moves(t_stack **a, t_stack **b, int cost_a, int cost_b)
 {
-    while (*cost < 0)
-    {
-        reverse_rotate(ab, c);
-        (*cost)++;
-    }
+	while (cost_a > 0 && cost_b > 0)
+	{
+		rr(a, b);
+		cost_a--;
+		cost_b--;
+	}
+	while (cost_a < 0 && cost_b < 0)
+	{
+		rrr(a, b);
+		cost_a++;
+		cost_b++;
+	}
+	rotate_s(a, &cost_a, 'a');
+	rrotate_s(a, &cost_a, 'a');
+	rotate_s(b, &cost_b, 'b');
+	rrotate_s(b, &cost_b, 'b');
 }
 
-void min_to_top(t_stack **a, int min_idx, int size_a, int min_value)
+int	calculate_total_cost(int cost_a, int cost_b)
 {
-    if (min_idx <= size_a / 2)
-    {
-        while ((*a)->value != min_value)
-            rotate(a, 'a');
-    }
-    else
-    {
-        while ((*a)->value != min_value)
-            reverse_rotate(a, 'a');
-    }
+	int	total;
+	int	max_cost;
+
+	total = 0;
+	if ((cost_a >= 0 && cost_b >= 0) || (cost_a <= 0 && cost_b <= 0))
+	{
+		if (ft_abs(cost_a) > ft_abs(cost_b))
+			max_cost = ft_abs(cost_a);
+		else
+			max_cost = ft_abs(cost_b);
+		total = max_cost;
+	}
+	else
+		total = ft_abs(cost_a) + ft_abs(cost_b);
+	return (total);
 }

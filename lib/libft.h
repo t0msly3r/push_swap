@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 12:46:02 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/02/26 17:31:08 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:28:31 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	*ft_calloc(size_t nmemb, size_t size);
 int		ft_tolower(int c);
 int		ft_abs(int n);
+int		ft_isnum(int c);
 
 #endif 

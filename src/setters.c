@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setters.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:39:58 by tfiz-ben          #+#    #+#             */
+/*   Updated: 2025/05/23 16:25:00 by tfiz-ben         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
 
 void	set_index(t_stack **ab)
@@ -31,9 +43,9 @@ void	set_target(t_stack **a, t_stack **b)
 
 void	set_costs(t_stack **a, t_stack **b)
 {
-	int		size_a = stacklen(a);
-	int		size_b = stacklen(b);
-	t_stack	*temp_b = *b;
+	int		size_a;
+	int		size_b;
+	t_stack	*temp_b;
 	int		target_pos;
 
 	temp_b = *b;
@@ -51,7 +63,14 @@ void	set_costs(t_stack **a, t_stack **b)
 		if (target_pos <= size_a / 2)
 			temp_b->cost_a = target_pos;
 		else
-			temp_b->cost_a = -(size_a - target_pos); 
+			temp_b->cost_a = -(size_a - target_pos);
 		temp_b = temp_b->next;
 	}
+}
+
+void	set_all(t_stack **a, t_stack **b)
+{
+	set_index(a);
+	set_target(a, b);
+	set_costs(a, b);
 }

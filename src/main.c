@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:39:48 by tfiz-ben          #+#    #+#             */
+/*   Updated: 2025/05/23 16:32:15 by tfiz-ben         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
 
 int	main(int argc, char **argv)
@@ -22,12 +34,9 @@ int	main(int argc, char **argv)
 		free_stack(a);
 		return (0);
 	}
-	set_index(&a);
-	set_target(&a, &b);
-	set_costs(&a, &b);
-	// show_stacks(&a,&b);
+	set_all(&a, &b);
 	sort_large(&a, &b);
+	print_stack(a);
 	free_stack(a);
 	free_stack(b);
 }
-
