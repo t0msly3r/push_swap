@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:02:57 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:36:14 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:55:35 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,33 @@ int	get_index(t_stack **a, int value)
 		index++;
 	}
 	return (-1);
+}
+
+int	get_target(t_stack *a, int value)
+{
+	int		target;
+	t_stack	*temp;
+
+	target = __INT_MAX__;
+	temp = a;
+	while (temp)
+	{
+		if ((value < temp->value) && (temp->value < target))
+		{
+			target = temp->value;
+		}
+		temp = temp->next;
+	}
+	if (target == __INT_MAX__)
+	{
+		temp = a;
+		target = temp->value;
+		while (temp)
+		{
+			if (temp->value < target)
+				target = temp->value;
+			temp = temp->next;
+		}
+	}
+	return (target);
 }

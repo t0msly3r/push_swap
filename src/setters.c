@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:39:58 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:25:00 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/23 17:02:29 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	set_target(t_stack **a, t_stack **b)
 	temp_b = *b;
 	while (temp_b)
 	{
-		temp_b->target = find_target(temp_a, temp_b->value);
+		temp_b->target = get_target(temp_a, temp_b->value);
 		temp_b = temp_b->next;
 	}
 }

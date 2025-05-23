@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:40:14 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:35:57 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:59:39 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_stack
 void				set_target(t_stack **a, t_stack **b);
 void				set_index(t_stack **ab);
 void				set_costs(t_stack **a, t_stack **b);
+void				set_all(t_stack **a, t_stack **b);
 
 // algorithms
 void				sort_three(t_stack **a);
@@ -41,38 +42,33 @@ void				sort_five(t_stack **a, t_stack **b);
 void				sort_large(t_stack **a, t_stack **b);
 void				execute_moves(t_stack **a, t_stack **b, int cost_a,
 						int cost_b);
+t_stack				*find_cheapest(t_stack **b);
+
+// getters.c
+void				get_arguments(char **arg, t_stack **a);
+void				get_arguments2(char **argv, t_stack **a, int argc,
+						int start);
+int					get_index(t_stack **a, int value);
+int					get_target(t_stack *a, int value);
+
+// checkers.c
+int					check_duplicates(t_stack **a);
+int					is_sorted(t_stack **a);
+int					check_argument(char *arg);
 
 // utils_*.c
-int					find_target(t_stack *a, int value);
 int					stacklen(t_stack **a);
 void				fill_stack(t_stack **a, int value);
 void				free_stack(t_stack *a);
-void				get_arguments(char **arg, t_stack **a);
-int					check_duplicates(t_stack **a);
-void				get_arguments2(char **argv, t_stack **a, int argc,
-						int start);
-void				fill_stack(t_stack **a, int value);
-void				get_arguments(char **arg, t_stack **a);
 void				move_to_top(t_stack **stack, int value, char c);
-t_stack				*find_cheapest(t_stack **b);
-void				print_stack(t_stack *a);
-void				show_stacks(t_stack **a, t_stack **b);
-void				push_b(t_stack **a, t_stack **b);
+long				ft_atol(const char *str);
 int					find_min(t_stack *stack);
-void				free_stack(t_stack *a);
-void				push_b(t_stack **a, t_stack **b);
-int					get_index(t_stack **a, int value);
-int					is_sorted(t_stack **a);
-int					check_duplicates(t_stack **a);
 void				min_to_top(t_stack **a, int min_idx, int size_a,
 						int min_value);
 int					calculate_total_cost(int cost_a, int cost_b);
 void				execute_moves(t_stack **a, t_stack **b, int cost_a,
 						int cost_b);
 void				ft_free_split(char **split);
-int					check_argument(char *arg);
-void				set_all(t_stack **a, t_stack **b);
-long				ft_atol(const char *str);
 
 // movements
 void				push(t_stack **src, t_stack **dest, char t_stack);
@@ -83,5 +79,6 @@ void				rrr(t_stack **a, t_stack **b);
 void				rr(t_stack **a, t_stack **b);
 void				rrotate_s(t_stack **ab, int *cost, char c);
 void				rotate_s(t_stack **ab, int *cost, char c);
+void				push_b(t_stack **a, t_stack **b);
 
 #endif

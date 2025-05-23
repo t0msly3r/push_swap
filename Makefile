@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g -I . -I includes/
 NAME = push_swap
-SRC = src/utils.c src/movements.c src/algorithm.c src/utils_2.c src/main.c src/setters.c src/movements_2.c src/checkers.c src/getter.c src/print.c
+SRC = src/utils.c src/movements.c src/algorithm.c src/utils_2.c src/main.c src/setters.c src/movements_2.c src/checkers.c src/getter.c
 OBJ = $(SRC:.c=.o)
 LIBFT_DIR = lib/
 LIBFT = $(LIBFT_DIR)/libft.a

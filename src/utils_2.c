@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:40:04 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:12:07 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:56:06 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,6 @@ int	stacklen(t_stack **a)
 		i++;
 	}
 	return (i);
-}
-
-int	find_target(t_stack *a, int value)
-{
-	int		target;
-	t_stack	*temp;
-
-	target = __INT_MAX__;
-	temp = a;
-	while (temp)
-	{
-		if ((value < temp->value) && (temp->value < target))
-		{
-			target = temp->value;
-		}
-		temp = temp->next;
-	}
-	if (target == __INT_MAX__)
-	{
-		temp = a;
-		target = temp->value;
-		while (temp)
-		{
-			if (temp->value < target)
-				target = temp->value;
-			temp = temp->next;
-		}
-	}
-	return (target);
 }
 
 void	ft_free_split(char **split)
@@ -108,4 +79,27 @@ int	calculate_total_cost(int cost_a, int cost_b)
 	else
 		total = ft_abs(cost_a) + ft_abs(cost_b);
 	return (total);
+}
+
+long	ft_atol(const char *str)
+{
+	long	result;
+	int		sign;
+
+	result = 0;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }
