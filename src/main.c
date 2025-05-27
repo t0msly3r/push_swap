@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:39:48 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:48:45 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:03:53 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	set_all(&a, &b);
-	sort_large(&a, &b);
+	sort(&a, &b);
 	free_stack(a);
 	free_stack(b);
 }

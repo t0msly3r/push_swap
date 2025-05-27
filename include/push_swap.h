@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:40:14 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:59:39 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:04:12 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void				set_all(t_stack **a, t_stack **b);
 void				sort_three(t_stack **a);
 void				sort_five(t_stack **a, t_stack **b);
 void				sort_large(t_stack **a, t_stack **b);
-void				execute_moves(t_stack **a, t_stack **b, int cost_a,
-						int cost_b);
+void				sort(t_stack **a, t_stack **b);
 t_stack				*find_cheapest(t_stack **b);
 
 // getters.c
