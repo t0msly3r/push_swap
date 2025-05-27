@@ -6,7 +6,7 @@
 /*   By: tfiz-ben <tfiz-ben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 12:39:44 by tfiz-ben          #+#    #+#             */
-/*   Updated: 2025/05/23 16:11:42 by tfiz-ben         ###   ########.fr       */
+/*   Updated: 2025/05/27 11:09:40 by tfiz-ben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,20 @@ void	sort_three(t_stack **a)
 void	sort_five(t_stack **a, t_stack **b)
 {
 	int	min;
+	int	size;
 
-	min = find_min(*a);
-	move_to_top(a, min, 'a');
-	push(b, a, 'a');
-	min = find_min(*a);
-	move_to_top(a, min, 'a');
-	push(b, a, 'a');
+	size = stacklen(a);
+	while (stacklen(a) > 3)
+	{
+		min = find_min(*a);
+		move_to_top(a, min, 'a');
+		push(a, b, 'b');
+	}
 	sort_three(a);
-	push(a, b, 'b');
-	push(a, b, 'b');
-	if ((*a)->value > (*a)->next->value)
-		swap(a, 'a');
+	while (*b)
+		push(b, a, 'a');
 }
+
 
 t_stack	*find_cheapest(t_stack **b)
 {
